@@ -1,5 +1,77 @@
 {% extends 'base.html' %}
 {% block content %}
+
+    <Style>
+        *{
+            text-decoration: none;
+        }
+        body{
+        background: white;
+        font-family: Helvetica;
+        }
+        .opacity_div
+        {
+            width: 99%;
+            height: 100vh;
+            position: absolute;
+            background-color: rgba(245, 245, 245, 0.85);
+            top: 0%;
+        }
+        .container{
+            background-color: #f0f0f8;
+            height: 500px;
+            width: 415px;
+            float: right;
+            margin-right: 420px;
+            margin-top: 65px;
+            padding-left: 17px; 
+            border-radius: 10px;
+            box-shadow: 0px 0px 7px rgb(170, 170, 170);
+        }
+       
+        hr{
+            margin-top: 20px;
+            border-top: 0.5px solid #afb8c4
+        }
+        .login-button{
+            padding: 12px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            width: 363px;
+            border-radius: 10px;
+            border: 1px solid white;
+            background-color: #2277e7;
+            font-size: 20px;
+            color: white;
+            font-weight: bold;
+            margin-left: 150px;
+            text-decoration: none;
+        }
+        .login-button:hover{
+            background-color: #166FE5;
+        }
+
+        .signup-btn{
+            border-color: none;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            background-color: #17bb2d;
+            border: none;
+            border-radius: 5px;
+            padding-left: 64px;
+            padding-right: 64px;
+            padding-top: 8px;
+            padding-bottom: 7px;
+            margin-left: 100px;
+            margin-top: 12px;
+        }
+        .signup-btn:hover{
+            background-color: #639357;
+        }
+
+    </Style>
+
     <div class="authform">
         <div class="col-4 box p-5">
              {% for message in messages %}
@@ -9,36 +81,40 @@
             {% endfor %}
             <form method="post">
                 {% csrf_token %}
-                <div class="row">
-                    <div class="col-6">
-                        <div class="mb-3">
-                            <label for="first_name" class="form-label">First Name</label>
-                            <input type="text" class="form-control" id="first_name" name="first_name"
-                                   aria-describedby="emailHelp">
+                <div class="textboxes">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="first_name" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="first_name" name="first_name"
+                                    aria-describedby="emailHelp">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="last_name" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="last_name" name="last_name"
+                                    aria-describedby="emailHelp">
+                            </div>
                         </div>
                     </div>
-                    <div class="col-6">
-                        <div class="mb-3">
-                            <label for="last_name" class="form-label">Last Name</label>
-                            <input type="text" class="form-control" id="last_name" name="last_name"
-                                   aria-describedby="emailHelp">
-                        </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" name="confirm_password">
                     </div>
                 </div>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" name="password">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" name="confirm_password">
-                </div>
-                <button type="submit" class="btn btn-primary">Register</button>
+                <button type="submit" class="signup-btn">Register</button>
             </form>
+            <hr>
+            <a class="login-button" href="{% url 'users:login' %">Login</a>
         </div>
     </div>
 {% endblock %}

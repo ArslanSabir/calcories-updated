@@ -1,28 +1,165 @@
 {% extends 'base.html' %}
+    
 {% block content %}
-    <div class="authform">
-        <div class="col-4 box p-5">
-{% if form.errors %}
-       {% for field in form %}
-           {% for error in field.errors %}
-              <div class="alert alert-danger">
-                   <strong>{{ error|escape }}</strong>
-              </div>
-           {% endfor %}
-       {% endfor %}
-    {% endif %}
+<style>
+    body{
+    font-family: Helvetica;
+    background-color: #F0F2F5;
+    background-image: url(img/calc1.jpg);
+    background-size: cover;
+    
+    }
+    #logo-container{
+        float: left;
+        margin-top: 165px;
+        margin-left: 70px;
+        width: 520px;
+    }
+    #logo-container p{
+        font-size: 25px;
+        font-weight: bold;
+        margin-top: 0px;
+        padding-left: 28px; 
+    }
+    .logo{
+        width: 100px;
+        height: 100px;
+    }
+    .logo img{
+        width: 500px;
+        height: 200;
+        margin-top: -140px;
+        margin-left: -75px;
+    }
+    #form-contaioner{
+        float: right;
+        width: 400px;
+        margin-top: 125px;
+        margin-right: 200px;
+    }
+    .form{
+        border: 1px solid none;
+        padding: 5px 18px;
+        background-color: #f0f0f8;
+        border-radius: 10px;
+        box-shadow: 0px 0px 5px #29293b80;
+    }
+    .form input{
+        padding: 15px;
+        margin-top: 15px;
+        width: 330px;
+        border: 1px solid #DDDFE2;
+        background-color: white;
+        border-radius: 10px;
+        font-size: 17px;
+    }
+    .form input:focus{
+        outline: none;
+        border:1px solid #1877F2;
+    }
+    .login-button{
+        padding: 12px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        width: 363px;
+        border-radius: 10px;
+        border: 1px solid white;
+        background-color: #2277e7;
+        font-size: 20px;
+        color: white;
+        font-weight: bold;
+    }
+    .login-button:hover{
+        background-color: #166FE5;
+    }
+    #forget-pass{    
+        margin-left: 116px;
+        text-decoration: none;
+        color: #1840f2;
+        font-size: 16px;
+    }
+    #forget-pass:hover{    
+        margin-left: 116px;
+        text-decoration: underline;
+        font-size: 16px;
+    }
+    .form a:hover{
+        text-decoration: underline;
+    }
+    hr{
+        margin-top: 20px;
+        border-top: 0.5px solid #afb8c4
+    }
+    .create_account-button{
+        padding: 15px;
+        margin-top: 15px;
+        margin-left: 80px;
+        margin-bottom: 18px;
+        width: 199px;
+        border-radius: 10px;
+        border: 1px solid white;
+        background-color: #17bb2d;
+        font-size: 17px;
+        color: white;
+        font-weight: bold;
+    }
+    .create_account-button:hover{
+        background-color: #639357;
+    }
+    .create_page-para{
+        margin-top: 28px;
+        margin-left: 44px;
+        font-size: 15px;
+    }
+    .create_page-para a{
+        text-decoration: none;
+        color: black;
+        font-weight: bold;
+    }
+    .create_page-para a:hover{
+        text-decoration: underline;
+    }
+
+</style>
+
+    <div id="logo-container">
+        <div class="logo">
+            {% load static %}
+            <img src="{% static 'img/Cal-03.png' %}" alt="caloreis calculator">
+
+        </div>
+        <div>
+            <p>
+                Calories Calculator helps you to track your daily
+                calories.
+            </p>
+        </div>
+    </div>
+    <div id="form-contaioner">
+        {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger">
+                            <strong>{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                {% endif %}
+        <div class="form">
             <form method="post">
                 {% csrf_token %}
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input type="password" class="form-control" name="password" id="exampleInputPassword1">
-                </div>
-                <button type="submit" class="btn btn-primary">Login</button>
+
+                <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp"  placeholder="Email address" required >
+
+                <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="Password" required>
+
+                <button type="submit" class="login-button">Log In</button>
+                <hr/>
+                <a href="{% url 'users:registration' %}">
+                    <button type="button" class="create_account-button"> Create New Account</button>
+                </a>
             </form>
         </div>
     </div>
+
 {% endblock %}

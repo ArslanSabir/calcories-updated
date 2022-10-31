@@ -22,13 +22,14 @@
 
     <div class="container-fluid">
         <div class="row">
+            {% if user.is_authenticated %}
+
             <div class="col-sm-auto bg-light sticky-top">
                 <div class="d-flex flex-sm-column flex-row flex-nowrap bg-light align-items-center sticky-top">
                     <a class="d-block p-3 link-dark text-decoration-none"  data-bs-toggle="tooltip" data-bs-placement="right" href="#">Menu
                        
                     </a>
                     <ul class="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto mx-auto text-center align-items-center">
-                        {% if user.is_authenticated %}
                         <li class="nav-item">
                             <a href="{% url 'users:dashboard' %}" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right">Dashboard
                                 
@@ -56,20 +57,12 @@
                             <a href="{% url 'users:registration' %}" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right"> Singup
                             </a>
                         </li>
-                        {% endif %}
                     </ul>
-                    <!-- <div class="dropdown">
-                        <a href="#" class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi-person-circle h2"></i>
-                        </a>
-                        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser3">
-                            <li><a class="dropdown-item" href="{% url 'users:dashboard' %}">Dashboard</a></li>
-                            <li><a class="dropdown-item" href="#">Settings</a></li>
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
-                        </ul>
-                    </div> -->
+                    
                 </div>
             </div>
+            {% endif %}
+
             <div class="col-sm p-3 min-vh-100">
                 <!-- content -->
                 {% block content %}{% endblock %}
