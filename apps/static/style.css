@@ -1,0 +1,63 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+html, body{
+    /*background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);*/
+    background-image: radial-gradient(73% 147%, #EADFDF 59%, #ECE2DF 100%), radial-gradient(91% 146%, rgba(255,255,255,0.50) 47%, rgba(0,0,0,0.50) 100%);
+ background-blend-mode: screen;
+    background-repeat: no-repeat;
+}
+.container{
+    min-height: 100vh;
+}
+
+.authform{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.authform .box{
+        border-radius: 10px;
+        background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+}
+.profile-info{
+    color: #fff;
+}
+
+
+.tab-wrapper {
+    display: inline-block;
+  }
+  .tabs {
+    display: flex;
+    align-items: center;
+    background: #eee;
+    border-radius: 6px;
+  }
+  .tabs div.month {
+    width: 4em;
+    text-align: center;
+  }
+  .left button, .right button{
+    padding: 10px 20px;
+    font-weight: bold;
+    /*background: var(--primary-btn-color);*/
+    background: black;
+    color: #fff;
+
+  }
+  .tabs button {
+    cursor: pointer;
+    border: 0;
+  }
+  .right button {
+      border-radius: 0 6px 6px 0;
+    border-left: 1px solid white;
+  }
+  .left button{
+      border-radius: 6px 0 0 6px;
+    border-right: 1px solid white;
+  }

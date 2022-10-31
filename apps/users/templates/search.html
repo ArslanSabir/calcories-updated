@@ -1,0 +1,61 @@
+{% extends 'base.html' %} {% block content %} {% csrf_token %}
+    <div class="row mt-4 ms-4">
+        <div class="col-8">
+            <div class="row mt-4 ms-4">
+                <form action="{% url 'users:search' %}">
+
+                    <div class="col-3">
+                        Date : <input type="date" name="date"/>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-2">Search</button>
+                </form>
+            </div>
+
+            <div class="row mt-4 ms-4">
+                <form action="{% url 'users:search' %}">
+
+                    <div class="col-3">
+                        Week : <input type="week" name="week"/>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-2">Search</button>
+                </form>
+            </div>
+
+            <div class="row mt-4 ms-4">
+                <form action="{% url 'users:search' %}">
+
+                    <div class="col-3">
+                        Day : <input type="number" min="1" max="31" step="1" name="day"/>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-2">Search</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-7 mt-4 ml-4">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Food Name</th>
+                    <th scope="col">Calories</th>
+                    <th scope="col">Time</th>
+                    <th scope="col">Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in items %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ item.name|capfirst }}</td>
+                        <td>{{ item.calories }}</td>
+                        <td>{{ item.get_consumed_at|title }}</td>
+                        <td>{{ item.created|date:'M d, Y' }}</td>
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+{% endblock %}

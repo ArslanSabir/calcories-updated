@@ -1,0 +1,219 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    {% if title %}
+    <title>{{ title }}</title>
+    {% else %}
+        <title>Calories Calculator</title>
+    {% endif %}
+
+</head>
+<body>
+<div class="container">
+{% comment %}    
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Calories</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class=" collapse navbar-collapse" id="navbarNavDarkDropdown">
+      <ul class="navbar-nav ms-auto">
+          {% if user.is_authenticated %}
+                <li><a class="nav-item" href="{% url 'users:dashboard' %}">Dashboard</a></li>
+            <li><a class="nav-item" href="{% url 'users:add_food' %}">Add Food</a></li>
+                  <li><a class="nav-item" href="{% url 'users:logout' %}">Logout</a></li>
+                  {% else %}
+                  <li><a class="nav-item" href="{% url 'users:login' %}">Login</a></li>
+            <li><a class="nav-item" href="{% url 'users:registration' %}">Sign up</a></li>
+              {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>{% endcomment %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Calories</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          {% if user.is_authenticated %}
+              <li class="nav-item"><a class="nav-link" href="{% url 'users:dashboard' %}">Dashboard</a></li>
+              <li class="nav-item"><a class="nav-link" href="{% url 'users:add_food' %}">Add Food</a></li>
+              <li class="nav-item"><a class="nav-link" href="{% url 'users:search' %}">Search</a></li>
+              <li class="nav-item"><a class="nav-link" href="{% url 'users:logout' %}">Logout</a></li>
+          {% else %}
+              <li class="nav-item"><a class="nav-link" href="{% url 'users:login' %}">Login</a></li>
+              <li class="nav-item"><a class="nav-link" href="{% url 'users:registration' %}">Signup</a></li>
+          {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+    {% block content %}{% endblock %}
+</div>
+
+
+<!-- Optional JavaScript; choose one of the two! -->
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- Option 2: Separate Popper and Bootstrap JS -->
+<!--
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+-->
+<script>
+    $(document).ready(function (){
+        $("select[name*='gender']").val('{{ user.profile.gender }}')
+        $("select[name*='life_style']").val('{{ user.profile.life_style }}')
+        $("select[name*='question']").val('{{ user.profile.question }}')
+    })
+    jQuery(document).on('click', '.add-food', function(e){
+        let food_html = `
+        <div class="row form-row">
+                        <div class="col-3">
+                            <div class="mb-3">
+                                <label for="food_name" class="form-label">Food Name</label>
+                                <input type="text" class="form-control" id="food_name" name="food" required>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="mb-3">
+                                <label for="calories" class="form-label">Calories</label>
+                                <input type="number" class="form-control" id="calories" name="calories" required>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <label for="time" class="form-label">Food Time</label>
+                            <select class="form-select" name="time" id="time" aria-label="Default select example" required>
+                                <option selected disabled>Chose...</option>
+                                <option value="lunch">Lunch</option>
+                                <option value="dinner">Dinner</option>
+                                <option value="break_fast">Break Fast</option>
+                            </select>
+                        </div>
+                        <div class="col-3">
+                            <button type="button" class="btn btn-danger mt-4 remove-food">Remove</button>
+                        </div>
+                    </div>`
+        $(".fooditems").append(food_html)
+    })
+    jQuery(document).on('click', '.remove-food', function (e){
+        $(this).parent().parent().remove();
+    })
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.js" integrity="sha512-5m2r+g00HDHnhXQDbRLAfZBwPpPCaK+wPLV6lm8VQ+09ilGdHfXV7IVyKPkLOTfi4vTTUVJnz7ELs7cA87/GMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        // months
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+        // getting current date
+        const currentDate = new Date();
+
+        const displayMonth = document.querySelector(".month")
+        displayMonth.dataset.monthIndex = currentDate.getMonth();
+        displayMonth.innerHTML = months[currentDate.getMonth()]
+
+
+        const handleButtonClick = (evt) => {
+            const clickLeft = evt.target.closest('div').classList.contains('left')
+            const displayMonth = evt.target.closest('.tabs').querySelector('.month')
+            let index = Number(displayMonth.dataset.monthIndex)
+            if (clickLeft)
+                index = index - (index > 0 ? 1 : 0)
+            else
+                index = index + (index < months.length - 1 ? 1 : 0)
+            displayMonth.dataset.monthIndex = index
+            displayMonth.innerHTML = months[index]
+            console.log(months[index])
+            getAppointment(index, currentDate.getFullYear())
+        }
+        document.querySelectorAll('.tabs button').forEach(b => {
+            b.addEventListener('click', handleButtonClick)
+        })
+  {#let labels = [months];#}
+
+  const data = {
+    labels: months,
+    datasets: [{
+      label: 'My First dataset',
+      backgroundColor: 'rgb(255, 99, 132)',
+      borderColor: 'rgb(255, 99, 132)',
+      data: [0, 10, 5, 2, 20, 30, 45],
+    }]
+  };
+
+  const config = {
+    type: 'bar',
+    data: data,
+    options: {}
+  };
+    const monthlyChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+    function getAppointment(month, year) {
+            //    Chart Area for admin
+            const xhr = new XMLHttpRequest()
+            xhr.open("POST", "{% url 'users:monthly_calories' %}")
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+            xhr.setRequestHeader("X-CSRFToken", document.querySelector('[name=csrfmiddlewaretoken]').value)
+            xhr.onload = function () {
+
+                const rjson = JSON.parse(this.responseText)
+                console.log(rjson)
+                let data = {
+                    labels: rjson.days,
+                    datasets: [{
+                        label: "Calories",
+                        data: rjson.calories,
+                        backgroundColor: [
+                            "#3e3d3d",
+                            "Orange",
+                            "Green",
+                            "Blue",
+                            "Purple",
+                            "Red",
+                            "Yellow",
+                            "Gray",
+                        ],
+
+                    }]
+                }
+                monthlyChart.data = data
+                monthlyChart.update()
+
+            } // onload ends here
+            xhr.send("month=" + month + "&" + "year=" + year)
+
+        }
+        jQuery(document).ready(function (){
+            getAppointment(currentDate.getMonth(), currentDate.getFullYear())
+        })
+        jQuery(document).on('change', 'input[type="week"]', function (e){
+            console.log($(this).val())
+            let [year, week] = $(this).val().split('-W')
+            console.log(year, week)
+            let url = `${window.location.origin}/week/${year}/${week}/`
+            $.get(url, function (data){
+                $('.weekly_calories').html(data.calories)
+            })
+        })
+</script>
+</body>
+</html>

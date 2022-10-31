@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="addfood-form">
+        <div class="col-12 p-5">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            <form method="post">
+                {% csrf_token %}
+                <div class="fooditems">
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="mb-3">
+                                <label for="food_name" class="form-label">Food Name</label>
+                                <input type="text" class="form-control" id="food_name" name="food" required>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="mb-3">
+                                <label for="calories" class="form-label">Calories</label>
+                                <input type="number" class="form-control" id="calories" name="calories" required>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <label for="time" class="form-label">Food Time</label>
+                            <select class="form-select" name="time" id="time" aria-label="Default select example" required>
+                                <option selected disabled>Chose...</option>
+                                <option value="lunch">Lunch</option>
+                                <option value="dinner">Dinner</option>
+                                <option value="break_fast">Break Fast</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <button type="button" class="btn btn-primary add-food">Add More</button>
+                <div class="col-3 mt-4">
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

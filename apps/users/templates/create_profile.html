@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="authform">
+        <div class="col-4 box p-5">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            <form method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-6">
+                        <div class="mb-3">
+                            <label for="gender" class="form-label">Gender</label>
+                            <select class="form-select" name="gender" aria-label="Default select example" required>
+                                {% comment %} <option selected disabled>Gender</option> {% endcomment %}
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="mb-3">
+                            <label for="life_style" class="form-label">Life Style</label>
+                            <select class="form-select" name="life_style" aria-label="Default select example" required>
+                                {% comment %} <option selected disabled>LifeStyle</option> {% endcomment %}
+                                <option value="sedentary">Sedentary</option>
+                                <option value="lightly_active">Lightly Active</option>
+                                <option value="moderately_active">Moderately Active</option>
+                                <option value="very_active">Very Active</option>
+                                <option value="extra_active">Extra Active</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="mb-3">
+                            <label for="height" class="form-label">Height</label>
+                            <input type="height" class="form-control" id="height" name="height" placeholder="cm"
+                            required>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="mb-3">
+                            <label for="weight" class="form-label">Weight</label>
+                            <input type="number" class="form-control" id="weight" name="weight" 
+                            placeholder="kg"
+                            required>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="dob" class="form-label">Date of Birth</label>
+                    <input type="date" class="form-control" id="dob" name="dob" required>
+                </div>
+                <div class="mb-3">
+                    <label for="question">DO you want to lose or gain</label>
+                    <select class="form-select" name="question" aria-label="Default select example" required>
+                        <option selected disabled>chose</option>
+                        <option value="gain">Gain</option>
+                        <option value="lose">Lose</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Done</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
